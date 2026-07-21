@@ -1,0 +1,60 @@
+{% extends "layouts/base.html" %} 
+
+
+{% block title %}
+    Holidays | Skyview Travels
+{% endblock %}
+
+{% block content %}
+
+<div class="page">
+
+    <h1>Holiday Packages</h1>
+
+    <p>
+        Explore beautiful destinations with Skyview Travels.
+    </p>
+
+    <div class="holiday-card">
+
+        <img
+            src="{{ url_for('static', filename='images/kashmir.jpg') }}"
+            alt="Kashmir">
+
+        <h2>Kashmir</h2>
+
+    </div>
+
+    <div class="holiday-card">
+
+        <img
+            src="{{ url_for('static', filename='images/kerala.jpg') }}"
+            alt="Kerala">
+
+        <h2>Kerala</h2>
+
+    </div>
+
+    <div class="holiday-card">
+
+        <img
+            src="{{ url_for('static', filename='images/singapore.jpg') }}"
+            alt="Singapore">
+
+        <h2>Singapore</h2>
+
+    </div>
+
+    <div class="holiday-card">
+
+        <img
+            src="{{ url_for('static', filename='images/thailand.jpg') }}"
+            alt="Thailand">
+
+        <h2>Thailand</h2>
+
+    </div>
+
+</div>
+
+{% endblock %}

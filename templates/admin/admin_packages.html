@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Manage Packages</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<h1>Manage Packages</h1>
+
+<a href="/admin">
+    <button>← Back to Bookings</button>
+</a>
+
+<a href="/add_package">
+    <button>+ Add New Package</button>
+</a>
+
+<br><br>
+
+<table border="1">
+
+<tr>
+
+    <th>ID</th>
+
+    <th>Name</th>
+
+    <th>Hotel</th>
+
+    <th>Duration</th>
+
+    <th>Transport</th>
+
+    <th>Visa</th>
+
+    <th>Price</th>
+
+    <th>Image</th>
+
+    <th>Edit</th>
+
+    <th>Delete</th>
+
+</tr>
+
+{% for package in packages %}
+
+<tr>
+
+    <td>{{ package[0] }}</td>
+
+    <td>{{ package[1] }}</td>
+
+    <td>{{ package[2] }}</td>
+
+    <td>{{ package[3] }}</td>
+
+    <td>{{ package[4] }}</td>
+
+    <td>{{ package[5] }}</td>
+
+    <td>{{ package[6] }}</td>
+
+    <td>{{ package[7] }}</td>
+
+    <td>
+
+        <a href="/edit_package/{{ package[0] }}">
+            <button>Edit</button>
+        </a>
+
+    </td>
+
+    <td>
+
+        <a href="/confirm_delete_package/{{ package[0] }}">
+            <button>Delete</button>
+        </a>
+
+    </td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+</body>
+
+</html>

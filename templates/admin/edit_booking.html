@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Edit Booking</title>
+
+    <link
+          rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<h1>Edit Booking</h1>
+
+<form method="POST">
+
+    <label>Package</label>
+    <br>
+    <input
+        type="text"
+        name="package"
+        value="{{ booking[1] }}"
+        required>
+
+    <br><br>
+
+    <label>Departure City</label>
+    <br>
+    <input
+        type="text"
+        name="departure_city"
+        value="{{ booking[2] }}"
+        required>
+
+    <br><br>
+
+    <label>Travel Date</label>
+    <br>
+    <input
+        type="date"
+        name="travel_date"
+        value="{{ booking[3] }}"
+        required>
+
+    <br><br>
+
+    <label>Full Name</label>
+    <br>
+    <input
+        type="text"
+        name="full_name"
+        value="{{ booking[4] }}"
+        required>
+
+    <br><br>
+
+    <label>Phone</label>
+    <br>
+    <input
+        type="text"
+        name="phone"
+        value="{{ booking[5] }}"
+        required>
+
+    <br><br>
+
+    <label>Email</label>
+    <br>
+    <input
+        type="email"
+        name="email"
+        value="{{ booking[6] }}"
+        required>
+
+    <br><br>
+
+    <button type="submit">
+        Save Changes
+    </button>
+
+</form>
+
+<br>
+
+<a href="/admin">
+    <button>Cancel</button>
+</a>
+
+</body>
+
+</html>

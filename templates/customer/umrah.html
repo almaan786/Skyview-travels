@@ -1,0 +1,52 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}
+    Umrah | Skyview Travels
+{% endblock %}
+
+{% block content %}
+
+<section class="packages">
+
+    <h1>Our Umrah Packages</h1>
+
+    <p>
+        Choose the package that best suits your needs.
+    </p>
+
+    <div class="package-container">
+
+    {% for package in packages %}
+
+    <div class="package-card">
+
+        <img src="{{ url_for('static',
+                filename='images/' + package[7]) }}"
+
+             alt="{{ package[1] }}">
+
+        <h2>{{ package[1] }}</h2>
+
+        <p><strong>Hotel:</strong> {{ package[2] }}</p>
+
+        <p><strong>Duration:</strong> {{ package[3] }}</p>
+
+        <p><strong>Transport:</strong> {{ package[4] }}</p>
+
+        <p><strong>Visa:</strong> {{ package[5] }}</p>
+
+        <p><strong>Price:</strong> {{ package[6] }}</p>
+
+       <a href="/book?category=Umrah&package={{ package[1] }}">
+            <button>Book Now</button>
+        </a>
+
+    </div>
+
+{% endfor %}
+
+</div>
+
+</section>
+
+{% endblock %}

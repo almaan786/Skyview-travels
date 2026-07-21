@@ -1,0 +1,44 @@
+{% extends "layouts/base.html" %}
+
+
+{% block title %}
+    Ziyarats | Skyview Travels
+{% endblock %}
+
+{% block content %}
+
+<div class="page">
+
+    <h1>Ziyarat Packages</h1>
+
+    <p>
+        Walk through the lands of Islamic history and strengthen your connection with faith
+    </p>
+
+<div class="holiday-card">
+
+    <img
+        src="{{ url_for('static', filename='images/turkey.jpg') }}"
+        alt="Turkey">
+
+    <h2>Turkey</h2>
+
+</div>
+
+<div class="holiday-card">
+
+    <img
+        src="{{ url_for('static', filename='images/baghdad.jpg') }}"
+        alt="Baghdad">
+
+    <h2>Baghdad</h2>
+
+</div>
+
+    <a href="/">
+        <button>Back to Home</button>
+    </a>
+
+</div>
+
+{% endblock %}

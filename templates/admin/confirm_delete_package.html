@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Delete Package</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<h1>Delete Package</h1>
+
+<p>
+
+Are you sure you want to delete the following package?
+
+</p>
+
+<ul>
+
+    <li><strong>Name:</strong> {{ package[1] }}</li>
+
+    <li><strong>Hotel:</strong> {{ package[2] }}</li>
+
+    <li><strong>Duration:</strong> {{ package[3] }}</li>
+
+    <li><strong>Price:</strong> {{ package[6] }}</li>
+
+</ul>
+
+<a href="/delete_package/{{ package[0] }}">
+    <button>Yes, Delete Package</button>
+</a>
+
+<a href="/admin/packages">
+    <button>Cancel</button>
+</a>
+
+</body>
+
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Edit Package</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<h1>Edit Package</h1>
+
+<form method="POST">
+
+    <label>Package Name</label><br>
+    <input
+        type="text"
+        name="name"
+        value="{{ package[1] }}"
+        required><br><br>
+
+    <label>Category</label><br>
+
+    <select name="category" required>
+
+        <option
+            value="Umrah"
+            {% if package[8] == "Umrah" %}selected{% endif %}>
+            Umrah
+        </option>
+
+        <option
+            value="Hajj"
+            {% if package[8] == "Hajj" %}selected{% endif %}>
+            Hajj
+        </option>
+
+    </select><br><br>
+
+    <label>Hotel</label><br>
+    <input
+        type="text"
+        name="hotel"
+        value="{{ package[2] }}"
+        required><br><br>
+
+    <label>Duration</label><br>
+    <input
+        type="text"
+        name="duration"
+        value="{{ package[3] }}"
+        required><br><br>
+
+    <label>Transport</label><br>
+    <input
+        type="text"
+        name="transport"
+        value="{{ package[4] }}"
+        required><br><br>
+
+    <label>Visa</label><br>
+    <input
+        type="text"
+        name="visa"
+        value="{{ package[5] }}"
+        required><br><br>
+
+    <label>Price</label><br>
+    <input
+        type="text"
+        name="price"
+        value="{{ package[6] }}"
+        required><br><br>
+
+    <label>Image Filename</label><br>
+    <input
+        type="text"
+        name="image"
+        value="{{ package[7] }}"
+        required><br><br>
+
+    <button type="submit">
+        Save Changes
+    </button>
+
+</form>
+
+<br>
+
+<a href="/admin/packages">
+    <button>Cancel</button>
+</a>
+
+</body>
+
+</html>

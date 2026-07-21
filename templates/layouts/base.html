@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <title>
+        {% block title %}
+        Skyview Travels
+        {% endblock %}
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}">
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+</head>
+
+<body>
+
+    <nav>
+
+        <div class="logo">
+
+            <img
+                src="{{ url_for('static', filename='images/logo.jpg') }}"
+                alt="Skyview Travels Logo">
+
+            <span>
+
+                Skyview Travels<br>
+
+                <small>of India</small>
+
+            </span>
+
+        </div>
+
+        <ul>
+
+            <li>
+                <a href="{{ url_for('home') }}">Home</a>
+            </li>
+
+            <li>
+                <a href="{{ url_for('services') }}">Services</a>
+            </li>
+
+            <li>
+                <a href="{{ url_for('contact') }}">Contact</a>
+            </li>
+
+            <li>
+                <a href="{{ url_for('book') }}">Book Now</a>
+            </li>
+
+        </ul>
+
+    </nav>
+
+    <main>
+
+        {% block content %}
+        {% endblock %}
+
+    </main>
+
+    <footer>
+
+        <div class="footer-container">
+
+            <div class="footer-section">
+
+                <h3>Skyview Travels</h3>
+
+                <p>
+                    Your trusted partner for Umrah, Hajj,
+                    Ziyarat and Holiday Packages.
+                </p>
+
+            </div>
+
+            <div class="footer-section">
+
+                <h3>Quick Links</h3>
+
+                <p>
+                    <a href="{{ url_for('home') }}">Home</a>
+                </p>
+
+                <p>
+                    <a href="{{ url_for('services') }}">Services</a>
+                </p>
+
+                <p>
+                    <a href="{{ url_for('contact') }}">Contact</a>
+                </p>
+
+            </div>
+
+            <div class="footer-section">
+
+                <h3>Contact</h3>
+
+                <p>📞 +91 XXXXXXXXXX</p>
+
+                <p>✉ your@email.com</p>
+
+            </div>
+
+        </div>
+
+        <div class="copyright">
+
+            © 2026 Skyview Travels. All Rights Reserved.
+
+        </div>
+
+    </footer>
+
+</body>
+
+</html>

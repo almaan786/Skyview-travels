@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Skyview Travels - Book Now</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}">
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+</head>
+
+<body>
+  <div class = "page">
+
+    <h1>Book Your Umrah</h1>
+    
+    <div class = "content-box">
+
+    <h3 id="stepIndicator">Step 1 of 4</h3>
+    
+    <form action="/book" method="POST"> 
+
+    <!-- Step 1 -->
+    <div id="step1">
+
+        <h2>Choose Your Package</h2>
+
+         {% for package in packages %}
+
+         <input
+         type="radio"
+         name="package"
+         value="{{ package[1] }}"
+         {% if selected_package == package[1] %}checked="checked"{% endif %}
+         required>
+
+         {{ package[1] }}
+
+            <br><br>
+
+          {% endfor %}        
+
+        <button type="button" onclick="nextStep()">
+            Next →
+        </button>
+
+    </div>
+
+    <!-- Step 2 -->
+    <div id="step2" style="display:none;">
+
+        <h2>Travel Details</h2>
+
+        <label>Departure City</label><br>
+        <input type="text" name="departure_city" required><br><br>
+
+        <label>Travel Date</label><br>
+        <input type="date" name="travel_date"required><br><br>
+
+        <button type="button" onclick="previousStep()">
+            ← Previous
+        </button>
+
+        <button type="button" onclick="goToStep3()">
+            Next →
+        </button>
+
+    </div>
+
+    <!-- Step 3 -->
+    <div id="step3" style="display:none;">
+
+        <h2>Personal Details</h2>
+
+        <label>Full Name</label><br>
+        <input type="text" name="full_name" required><br><br>
+
+        <label>Phone Number</label><br>
+        <input type="tel" name="phone" required><br><br>
+
+        <label>Email</label><br>
+        <input type="email" name="email" required><br><br>
+
+        <button type="button" onclick="backToStep2()">
+            ← Previous
+        </button>
+
+        <button type="button" onclick="goToStep4()">
+            Next →
+        </button>
+
+    </div>
+
+    <!-- Step 4 -->
+    <div id="step4" style="display:none;">
+
+        <h2>Review & Submit</h2>
+
+        <p>
+            Please review your information before submitting your booking request.
+        </p>
+
+        <button type="button" onclick="backToStep3()">
+            ← Previous
+        </button>
+
+        <button type="submit">
+            Submit Booking
+        </button>
+
+    </div>
+    
+    </form>
+
+    <script>
+
+        function nextStep()
+        {
+            document.getElementById("step1").style.display = "none";
+            document.getElementById("step2").style.display = "block";
+
+            document.getElementById("stepIndicator").innerHTML = "Step 2 of 4";
+        }
+
+        function previousStep()
+        {
+            document.getElementById("step2").style.display = "none";
+            document.getElementById("step1").style.display = "block";
+
+            document.getElementById("stepIndicator").innerHTML = "Step 1 of 4";
+        }
+
+    </div>
+
+    </div>
+
+    </script>
+
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+</body>
+
+</html>
