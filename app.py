@@ -2,6 +2,9 @@ from flask import Flask, render_template, request,redirect,session
 from werkzeug.security import generate_password_hash, check_password_hash
 import sqlite3
 
+# Todo:- writing the helper functions 
+# then replace the helper function with postgresql
+
 app = Flask(__name__)
 
 app.secret_key = "4dcbf82c1ab1c5f0f4d9b3f6f7f7a8c24ea18e6d1d7a5d2f5d7b2e0a4f0c8a9b"
@@ -149,6 +152,7 @@ def admin():
 
     return render_template("admin/admin.html",
                            bookings=bookings)
+# Booking Handling
 
 @app.route("/update_status/<int:booking_id>/<new_status>")
 def update_status(booking_id, new_status):
@@ -176,17 +180,7 @@ def confirm_delete(booking_id):
     if "admin" not in session:
         return redirect("/login")
 
-    connection = get_connection()
-    cursor = connection.cursor()
-
-    cursor.execute("""
-    SELECT * FROM bookings
-    WHERE id = ?
-    """, (booking_id,))
-
-    booking = cursor.fetchone()
-
-    connection.close()
+    booking=get_booking_by_id(booking_id)
 
     return render_template(
         "admin/confirm_delete.html",
@@ -254,12 +248,7 @@ def edit_booking(booking_id):
 
         return redirect("/admin")
 
-    cursor.execute("""
-    SELECT * FROM bookings
-    WHERE id = ?
-    """, (booking_id,))
-
-    booking = cursor.fetchone()
+    booking = get_booking_by_id(booking_id)
 
     connection.close()
 
@@ -310,6 +299,8 @@ def ziyarats():
 @app.route("/services")
 def services():
     return render_template("customer/services.html")
+
+# Travel Package Handling
 
 @app.route("/admin/packages")
 def admin_packages():
@@ -432,14 +423,7 @@ def edit_package(package_id):
 
         return redirect("/admin/packages")
 
-    cursor.execute(
-        "SELECT * FROM packages WHERE id=?",
-        (package_id,)
-    )
-
-    package = cursor.fetchone()
-
-    connection.close()
+    package = get_package_by_id(package_id)
 
     return render_template(
         "admin/edit_package.html",
@@ -453,18 +437,7 @@ def confirm_delete_package(package_id):
     if "admin" not in session:
         return redirect("/login")
 
-    connection = get_connection()
-
-    cursor = connection.cursor()
-
-    cursor.execute(
-        "SELECT * FROM packages WHERE id=?",
-        (package_id,)
-    )
-
-    package = cursor.fetchone()
-
-    connection.close()
+    package = get_package_by_id(package_id)
 
     return render_template(
         "admin/confirm_delete_package.html",
@@ -599,9 +572,45 @@ def qa():
 def contact():
     return render_template("customer/contact.html")
 
+#Helper Functions
+
 def get_connection():
 
     return sqlite3.connect("bookings.db")
+
+def get_booking_by_id(booking_id):
+
+    connection = get_connection()
+    cursor = connection.cursor()
+
+    cursor.execute("""
+    SELECT * FROM bookings
+    WHERE id = ?
+    """, (booking_id,))
+
+    booking = cursor.fetchone()
+
+    connection.close()
+
+    return booking
+
+def get_package_by_id(package_id):
+
+    connection = get_connection()
+    cursor = connection.cursor()
+
+    cursor.execute(
+        "SELECT * FROM packages WHERE id=?",
+        (package_id,)
+    )
+
+    package = cursor.fetchone()
+
+    connection.close()
+
+    return package
+
+#
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)
