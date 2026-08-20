@@ -1,9 +1,24 @@
 from flask import Flask, render_template, request,redirect,session
-from werkzeug.security import generate_password_hash, check_password_hash
-import sqlite3
+from werkzeug.security import check_password_hash
+from helpers import (
+    get_packages,
+    get_package_by_id,
+    get_bookings,
+    get_booking_by_id,
+    get_admin_by_username,
+    create_booking,
+    update_booking,
+    update_booking_status,
+    delete_booking,
+    create_package,
+    update_package,
+    delete_package
+)
+
 
 # Todo:- writing the helper functions 
 # then replace the helper function with postgresql
+#Todo:- You have to test the package crud operations
 
 app = Flask(__name__)
 
@@ -30,52 +45,18 @@ def book():
         phone = request.form["phone"]
         email = request.form["email"]
 
-        connection = get_connection()
-        cursor = connection.cursor()
-
-        cursor.execute("""
-        INSERT INTO bookings
-        (package,
-        departure_city,
-        travel_date,
-        full_name,
-        phone,
-        email)
-
-        VALUES
-        (?, ?, ?, ?, ?, ?)
-        """,
-        (
+        create_booking(
         package,
         departure_city,
         travel_date,
         full_name,
         phone,
         email
-        ))
-
-        connection.commit()
-        connection.close()
+        )
 
         return render_template("customer/confirmation.html")
 
-    connection = get_connection()
-    cursor = connection.cursor()
-
-    if category:
-
-        cursor.execute("""
-        SELECT * FROM packages
-        WHERE category = ?
-        """, (category,))
-
-    else:
-
-        cursor.execute("SELECT * FROM packages")
-
-    packages = cursor.fetchall()
-
-    connection.close()
+    packages = get_packages(category)
 
     return render_template(
         "customer/book.html",
@@ -91,18 +72,7 @@ def login():
         username = request.form["username"]
         password = request.form["password"]
 
-        connection = get_connection()
-
-        cursor = connection.cursor()
-
-        cursor.execute("""
-        SELECT * FROM admins
-        WHERE username = ?
-        """, (username,))
-
-        admin = cursor.fetchone()
-
-        connection.close()
+        admin = get_admin_by_username(username)
 
         if admin and check_password_hash(admin[2], password):
 
@@ -129,26 +99,7 @@ def admin():
 
     search = request.args.get("search")
 
-    connection = get_connection()
-
-    cursor = connection.cursor()
-
-    if search:
-
-        cursor.execute("""
-        SELECT * FROM bookings
-        WHERE full_name LIKE ?
-        """, ('%' + search + '%',))
-
-    else:
-
-        cursor.execute("""
-        SELECT * FROM bookings
-        """)
-
-    bookings = cursor.fetchall()
-
-    connection.close()
+    bookings = get_bookings(search)
 
     return render_template("admin/admin.html",
                            bookings=bookings)
@@ -160,17 +111,7 @@ def update_status(booking_id, new_status):
     if "admin" not in session:
         return redirect("/login")
 
-    connection = get_connection()
-    cursor = connection.cursor()
-
-    cursor.execute("""
-    UPDATE bookings
-    SET status = ?
-    WHERE id = ?
-    """, (new_status, booking_id))
-
-    connection.commit()
-    connection.close()
+    update_booking_status(booking_id, new_status)
 
     return redirect("/admin")
 
@@ -188,21 +129,12 @@ def confirm_delete(booking_id):
     )
 
 @app.route("/delete_booking/<int:booking_id>")
-def delete_booking(booking_id):
+def delete_booking_route(booking_id):
 
     if "admin" not in session:
         return redirect("/login")
 
-    connection = get_connection()
-    cursor = connection.cursor()
-
-    cursor.execute("""
-    DELETE FROM bookings
-    WHERE id = ?
-    """, (booking_id,))
-
-    connection.commit()
-    connection.close()
+    delete_booking(booking_id)
 
     return redirect("/admin")
 
@@ -212,8 +144,6 @@ def edit_booking(booking_id):
     if "admin" not in session:
         return redirect("/login")
 
-    connection = get_connection()
-    cursor = connection.cursor()
 
     if request.method == "POST":
 
@@ -224,55 +154,25 @@ def edit_booking(booking_id):
         phone = request.form["phone"]
         email = request.form["email"]
 
-        cursor.execute("""
-        UPDATE bookings
-        SET package = ?,
-            departure_city = ?,
-            travel_date = ?,
-            full_name = ?,
-            phone = ?,
-            email = ?
-        WHERE id = ?
-        """, (
+        update_booking(
+            booking_id,
             package,
             departure_city,
             travel_date,
             full_name,
             phone,
-            email,
-            booking_id
-        ))
-
-        connection.commit()
-        connection.close()
+            email
+        )
 
         return redirect("/admin")
 
     booking = get_booking_by_id(booking_id)
 
-    connection.close()
 
     return render_template(
         "admin/edit_booking.html",
         booking=booking
     )
-
-def get_packages(category=None):
-    connection = get_connection()
-    cursor = connection.cursor()
-
-    if category :
-        cursor.execute(
-            "SELECT * FROM packages WHERE category = ?",
-            (category,)
-        )
-
-    else :
-        cursor.execute("SELECT * FROM packages")
-    packages = cursor.fetchall()
-    connection.close()
-
-    return packages
 
 @app.route("/umrah")
 def umrah():
@@ -308,15 +208,7 @@ def admin_packages():
     if "admin" not in session:
         return redirect("/login")
 
-    connection = get_connection()
-
-    cursor = connection.cursor()
-
-    cursor.execute("SELECT * FROM packages")
-
-    packages = cursor.fetchall()
-
-    connection.close()
+    packages = get_packages()
 
     return render_template(
         "admin/admin_packages.html",
@@ -341,30 +233,16 @@ def add_package():
         price = request.form["price"]
         image = request.form["image"]
 
-        connection = get_connection()
-
-        cursor = connection.cursor()
-
-        cursor.execute("""
-        INSERT INTO packages
-        (name, hotel, duration, transport, visa, price, image,category)
-
-        VALUES
-        (?, ?, ?, ?, ?, ?, ?,?)
-        """,
-        (
-            name,
-            hotel,
-            duration,
-            transport,
-            visa,
-            price,
-            image,
-            category
-        ))
-
-        connection.commit()
-        connection.close()
+        create_package(
+    	    name,
+    	    category,
+   	    hotel,
+   	    duration,
+    	    transport,
+    	    visa,
+    	    price,
+    	    image
+	)
 
         return redirect("/admin/packages")
 
@@ -377,9 +255,6 @@ def edit_package(package_id):
     if "admin" not in session:
         return redirect("/login")
 
-    connection = get_connection()
-    cursor = connection.cursor()
-
     if request.method == "POST":
 
         name = request.form["name"]
@@ -391,35 +266,17 @@ def edit_package(package_id):
         price = request.form["price"]
         image = request.form["image"]
 
-        cursor.execute("""
-        UPDATE packages
-
-        SET
-        name=?,
-        hotel=?,
-        duration=?,
-        transport=?,
-        visa=?,
-        price=?,
-        image=?,
-        category=?
-
-        WHERE id=?
-        """,
-        (
+        update_package(
+            package_id,
             name,
+            category,
             hotel,
             duration,
             transport,
             visa,
             price,
-            image,
-            category,
-            package_id
-        ))
-
-        connection.commit()
-        connection.close()
+    	    image
+	)
 
         return redirect("/admin/packages")
 
@@ -445,23 +302,12 @@ def confirm_delete_package(package_id):
     )
 
 @app.route("/delete_package/<int:package_id>")
-def delete_package(package_id):
+def delete_package_route(package_id):
 
     if "admin" not in session:
         return redirect("/login")
 
-    connection = get_connection()
-
-    cursor = connection.cursor()
-
-    cursor.execute(
-        "DELETE FROM packages WHERE id=?",
-        (package_id,)
-    )
-
-    connection.commit()
-
-    connection.close()
+    delete_package(package_id)
 
     return redirect("/admin/packages")
 
@@ -571,44 +417,6 @@ def qa():
 @app.route("/contact")
 def contact():
     return render_template("customer/contact.html")
-
-#Helper Functions
-
-def get_connection():
-
-    return sqlite3.connect("bookings.db")
-
-def get_booking_by_id(booking_id):
-
-    connection = get_connection()
-    cursor = connection.cursor()
-
-    cursor.execute("""
-    SELECT * FROM bookings
-    WHERE id = ?
-    """, (booking_id,))
-
-    booking = cursor.fetchone()
-
-    connection.close()
-
-    return booking
-
-def get_package_by_id(package_id):
-
-    connection = get_connection()
-    cursor = connection.cursor()
-
-    cursor.execute(
-        "SELECT * FROM packages WHERE id=?",
-        (package_id,)
-    )
-
-    package = cursor.fetchone()
-
-    connection.close()
-
-    return package
 
 #
 
