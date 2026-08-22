@@ -1,9 +1,5 @@
-import sqlite3
-from werkzeug.security import generate_password_hash
+import psycopg
+import os
 
 def get_connection():
-
-    return sqlite3.connect("bookings.db")
-
-
-
+    return psycopg.connect(os.environ["DATABASE_URL"])

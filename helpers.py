@@ -11,7 +11,7 @@ def get_bookings(search=None):
 
         cursor.execute("""
         SELECT * FROM bookings
-        WHERE full_name LIKE ?
+        WHERE full_name LIKE %s
         """, ('%' + search + '%',))
 
     else:
@@ -34,7 +34,7 @@ def get_booking_by_id(booking_id):
 
     cursor.execute("""
     SELECT * FROM bookings
-    WHERE id = ?
+    WHERE id = %s
     """, (booking_id,))
 
     booking = cursor.fetchone()
@@ -64,7 +64,7 @@ def create_booking(package,
     email)
 
     VALUES
-    (?, ?, ?, ?, ?, ?)
+    (%s, %s, %s, %s, %s, %s)
     """,
     (
         package,
@@ -93,13 +93,13 @@ def update_booking(
 
     cursor.execute("""
     UPDATE bookings
-    SET package = ?,
-        departure_city = ?,
-        travel_date = ?,
-        full_name = ?,
-        phone = ?,
-        email = ?
-    WHERE id = ?
+    SET package = %s,
+        departure_city = %s,
+        travel_date = %s,
+        full_name = %s,
+        phone = %s,
+        email = %s
+    WHERE id = %s
     """, (
         package,
         departure_city,
@@ -120,8 +120,8 @@ def update_booking_status(booking_id, new_status):
 
     cursor.execute("""
     UPDATE bookings
-    SET status = ?
-    WHERE id = ?
+    SET status = %s
+    WHERE id = %s
     """, (new_status, booking_id))
 
     connection.commit()
@@ -134,7 +134,7 @@ def delete_booking(booking_id):
 
     cursor.execute("""
     DELETE FROM bookings
-    WHERE id = ?
+    WHERE id = %s
     """, (booking_id,))
 
     connection.commit()
@@ -146,7 +146,7 @@ def get_package_by_id(package_id):
     cursor = connection.cursor()
 
     cursor.execute(
-        "SELECT * FROM packages WHERE id=?",
+        "SELECT * FROM packages WHERE id=%s",
         (package_id,)
     )
 
@@ -162,7 +162,7 @@ def get_packages(category=None):
 
     if category :
         cursor.execute(
-            "SELECT * FROM packages WHERE category = ? " ,
+            "SELECT * FROM packages WHERE category = %s " ,
             (category,)
         )
 
@@ -180,7 +180,7 @@ def get_admin_by_username(username):
 
     cursor.execute("""
     SELECT * FROM admins
-    WHERE username = ?
+    WHERE username = %s
     """, (username,))
 
     admin = cursor.fetchone()
@@ -209,7 +209,7 @@ def create_package(
     (name, hotel, duration, transport, visa, price, image, category)
 
     VALUES
-    (?, ?, ?, ?, ?, ?, ?, ?)
+    (%s, %s, %s, %s, %s, %s, %s, %s)
     """,
     (
         name,
@@ -243,15 +243,15 @@ def update_package(
     cursor.execute("""
     UPDATE packages
     SET
-    name=?,
-    hotel=?,
-    duration=?,
-    transport=?,
-    visa=?,
-    price=?,
-    image=?,
-    category=?
-    WHERE id=?
+    name=%s,
+    hotel=%s,
+    duration=%s,
+    transport=%s,
+    visa=%s,
+    price=%s,
+    image=%s,
+    category=%s
+    WHERE id=%s
     """,
     (
         name,
@@ -275,7 +275,7 @@ def delete_package(package_id):
 
     cursor.execute("""
     DELETE FROM packages
-    WHERE id = ?
+    WHERE id = %s
     """, (package_id,))
 
     connection.commit()
