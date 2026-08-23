@@ -146,9 +146,12 @@ def get_package_by_id(package_id):
     cursor = connection.cursor()
 
     cursor.execute(
-        "SELECT * FROM packages WHERE id=%s",
-        (package_id,)
-    )
+    """
+    SELECT id, name, hotel, duration, transport, visa, price, image, category
+    FROM packages
+    WHERE id=%s
+    """,
+    (package_id,))
 
     package = cursor.fetchone()
 
@@ -161,13 +164,19 @@ def get_packages(category=None):
     cursor = connection.cursor()
 
     if category :
-        cursor.execute(
-            "SELECT * FROM packages WHERE category = %s " ,
-            (category,)
-        )
+        cursor.execute( """
+    SELECT id, name, hotel, duration, transport, visa, price, image, category
+    FROM packages
+    WHERE category = %s
+    """,
+    (category,))
 
     else :
-        cursor.execute("SELECT * FROM packages")
+        cursor.execute("""
+    SELECT id, name, hotel, duration, transport, visa, price, image, category
+    FROM packages
+    """)
+
     packages = cursor.fetchall()
     connection.close()
 
