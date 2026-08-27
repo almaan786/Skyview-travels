@@ -1,3 +1,8 @@
+from dotenv import load_dotenv
+
+load_dotenv("local.env")
+
+import os
 from flask import Flask, render_template, request,redirect,session
 from werkzeug.security import check_password_hash
 from helpers import (
@@ -22,7 +27,7 @@ from helpers import (
 
 app = Flask(__name__)
 
-app.secret_key = "4dcbf82c1ab1c5f0f4d9b3f6f7f7a8c24ea18e6d1d7a5d2f5d7b2e0a4f0c8a9b"
+app.secret_key = os.getenv("SECRET_KEY")
 
 @app.route("/")
 def home():

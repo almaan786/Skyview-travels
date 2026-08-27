@@ -4,3 +4,8 @@ venv/
 .env
 Backups/
 bookings.db
+base(Copy).html
+local.env
+.git-corrupted/
+skyview-github/
+templates/layouts/base(Copy).html

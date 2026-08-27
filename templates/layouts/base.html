@@ -25,9 +25,13 @@
 
         <div class="logo">
 
+	    <a href="{{ url_for('home') }}">
+
             <img
                 src="{{ url_for('static', filename='images/logo.jpg') }}"
                 alt="Skyview Travels Logo">
+
+	    </a>
 
             <span>
 
@@ -67,59 +71,78 @@
         {% endblock %}
 
     </main>
+<footer>
 
-    <footer>
+    <div class="footer-container">
 
-        <div class="footer-container">
+        <div class="footer-section">
 
-            <div class="footer-section">
+            <h3>Skyview Travels</h3>
 
-                <h3>Skyview Travels</h3>
-
-                <p>
-                    Your trusted partner for Umrah, Hajj,
-                    Ziyarat and Holiday Packages.
-                </p>
-
-            </div>
-
-            <div class="footer-section">
-
-                <h3>Quick Links</h3>
-
-                <p>
-                    <a href="{{ url_for('home') }}">Home</a>
-                </p>
-
-                <p>
-                    <a href="{{ url_for('services') }}">Services</a>
-                </p>
-
-                <p>
-                    <a href="{{ url_for('contact') }}">Contact</a>
-                </p>
-
-            </div>
-
-            <div class="footer-section">
-
-                <h3>Contact</h3>
-
-                <p>📞 +91 XXXXXXXXXX</p>
-
-                <p>✉ your@email.com</p>
-
-            </div>
+            <p>
+                Your trusted partner for Umrah, Hajj,
+                Ziyarat and Holiday Packages.
+            </p>
 
         </div>
 
-        <div class="copyright">
+        <div class="footer-section">
 
-            © 2026 Skyview Travels. All Rights Reserved.
+            <h3>Quick Links</h3>
+
+            <p>
+                <a href="{{ url_for('home') }}">Home</a>
+            </p>
+
+            <p>
+                <a href="{{ url_for('services') }}">Services</a>
+            </p>
+
+            <p>
+                <a href="{{ url_for('contact') }}">Contact</a>
+            </p>
 
         </div>
 
-    </footer>
+        <div class="footer-section">
+
+            <h3>Contact</h3>
+
+            <p>📞 +91 9078784550</p>
+
+	    <h3>Whatsapp Number</h3>
+
+	    <p>9668509260</p>
+
+            <p>✉ contact.worldwide786@gmail.com</p>
+
+        </div>
+
+        <div class="footer-section">
+
+            <h3>Website & Advertising</h3>
+
+            <p>
+                Need a website for your business?
+                Get in touch for website development
+                and advertising opportunities.
+            </p>
+
+            <p>📞 +91 8260889678</p>
+
+            <p>✉ almaanarsh786@gmail.com</p>
+
+        </div>
+
+    </div>
+
+    <div class="copyright">
+
+        © 2026 Skyview Travels. All Rights Reserved.
+
+    </div>
+
+</footer>
 
 </body>
 

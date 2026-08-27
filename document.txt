@@ -1,0 +1,102 @@
+Skyview Travels — PostgreSQL Package Data Mapping
+
+Purpose
+
+This document records the current package data mapping used by the Skyview Travels MVP after migrating from SQLite to PostgreSQL.
+
+The mapping should not be changed unless the underlying query or returned row structure is intentionally changed and fully tested.
+
+Current Package Mapping
+
+The "admin_packages.html" template receives each package as a positional row and accesses its values using "package[index]".
+
+The currently verified mapping is:
+
+Dashboard Column| Template Expression| Index
+ID| "package[0]"| 0
+Name| "package[1]"| 1
+Hotel| "package[2]"| 2
+Duration| "package[3]"| 3
+Visa| "package[4]"| 4
+Transport| "package[5]"| 5
+Price| "package[6]"| 6
+Image| "package[7]"| 7
+
+Important Observation
+
+The PostgreSQL result order does not match the original SQLite application's assumed positional order.
+
+In particular:
+
+- "package[4]" contains Visa
+- "package[5]" contains Transport
+
+Therefore, the template must retain the verified mapping above.
+
+Current Template Structure
+
+The package table should display the fields in this order:
+
+ID
+Name
+Hotel
+Duration
+Transport
+Visa
+Price
+Image
+Edit
+Delete
+
+The corresponding positional expressions are:
+
+{{ package[0] }}
+{{ package[1] }}
+{{ package[2] }}
+{{ package[3] }}
+{{ package[5] }}
+{{ package[4] }}
+{{ package[6] }}
+{{ package[7] }}
+
+Why the Mapping Was Kept
+
+The MVP is currently focused on functionality.
+
+Rather than changing the database schema, database connection configuration, or the entire helper layer, the existing working application structure was preserved and only the affected template mapping was corrected.
+
+This follows the practical principle:
+
+«Don't change working code unnecessarily.»
+
+This minimizes the risk of introducing unrelated problems into the deployed MVP.
+
+Future Refactoring
+
+A future improvement could replace positional access such as:
+
+{{ package[4] }}
+
+with named fields such as:
+
+{{ package.visa }}
+
+or:
+
+{{ package["visa"] }}
+
+using dictionary-style database rows.
+
+However, this should be treated as a future refactoring task, not a requirement for the current MVP.
+
+Before making such a change, all affected helpers and templates should be checked because other parts of the application currently rely on positional database rows.
+
+Current Status
+
+Package dashboard mapping: VERIFIED
+
+PostgreSQL migration: FUNCTIONAL
+
+Current approach: Preserve working code and avoid unnecessary refactoring
+
+Priority: Continue testing the deployed MVP and package CRUD operations
