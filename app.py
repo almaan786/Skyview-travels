@@ -17,7 +17,8 @@ from helpers import (
     delete_booking,
     create_package,
     update_package,
-    delete_package
+    delete_package,
+    send_whatsapp_notification
 )
 
 
@@ -50,13 +51,19 @@ def book():
         phone = request.form["phone"]
         email = request.form["email"]
 
-        create_booking(
+        booking_id = create_booking(
         package,
         departure_city,
         travel_date,
         full_name,
         phone,
         email
+        )
+    
+        send_whatsapp_notification(
+        booking_id,
+        full_name,
+        package
         )
 
         return render_template("customer/confirmation.html")
@@ -422,6 +429,14 @@ def qa():
 @app.route("/contact")
 def contact():
     return render_template("customer/contact.html")
+
+@app.route("/robots.txt")
+def robots():
+    return """User-agent: *
+	      Allow: /
+
+	      Disallow: /admin/
+	      """
 
 #
 
