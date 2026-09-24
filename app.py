@@ -17,8 +17,7 @@ from helpers import (
     delete_booking,
     create_package,
     update_package,
-    delete_package,
-    send_whatsapp_notification
+    delete_package
 )
 
 
@@ -58,12 +57,6 @@ def book():
         full_name,
         phone,
         email
-        )
-    
-        send_whatsapp_notification(
-        booking_id,
-        full_name,
-        package
         )
 
         return render_template("customer/confirmation.html")
@@ -323,109 +316,6 @@ def delete_package_route(package_id):
 
     return redirect("/admin/packages")
 
-@app.route("/admin/questions")
-def admin_questions():
-
-    if "admin" not in session:
-        return redirect("/login")
-
-    connection = get_connection()
-    cursor = connection.cursor()
-
-    cursor.execute("""
-    SELECT * FROM questions
-    """)
-
-    questions = cursor.fetchall()
-
-    connection.close()
-
-    return render_template(
-        "admin_questions.html",
-        questions=questions
-    )
-
-@app.route("/answer_question/<int:question_id>", methods=["GET", "POST"])
-def answer_question(question_id):
-
-    if "admin" not in session:
-        return redirect("/login")
-
-    connection = get_connection()
-    cursor = connection.cursor()
-
-    if request.method == "POST":
-
-        answer = request.form["answer"]
-
-        cursor.execute("""
-        UPDATE questions
-
-        SET
-        answer = ?,
-        status = ?
-
-        WHERE id = ?
-        """,
-        (
-            answer,
-            "Answered",
-            question_id
-        ))
-
-        connection.commit()
-        connection.close()
-
-        return redirect("/admin/questions")
-
-    cursor.execute("""
-    SELECT * FROM questions
-    WHERE id = ?
-    """, (question_id,))
-
-    question = cursor.fetchone()
-
-    connection.close()
-
-    return render_template(
-        "answer_question.html",
-        question=question
-    )
-
-@app.route("/qa", methods=["GET", "POST"])
-def qa():
-
-    if request.method == "POST":
-
-        full_name = request.form["full_name"]
-        phone = request.form["phone"]
-        question = request.form["question"]
-
-        connection = get_connection()
-        cursor = connection.cursor()
-
-        cursor.execute("""
-        INSERT INTO questions
-        (full_name, phone, question)
-
-        VALUES
-        (?, ?, ?)
-        """,
-        (
-            full_name,
-            phone,
-            question
-        ))
-
-        connection.commit()
-        connection.close()
-
-        return render_template("confirmation.html")
-
-    return render_template("qa.html")
-
-
-
 @app.route("/contact")
 def contact():
     return render_template("customer/contact.html")
@@ -433,10 +323,49 @@ def contact():
 @app.route("/robots.txt")
 def robots():
     return """User-agent: *
-	      Allow: /
+Allow: /
 
-	      Disallow: /admin/
-	      """
+Disallow: /admin/
+
+Sitemap: https://skyview-travels.onrender.com/sitemap.xml
+""", 200, {"Content-Type": "text/plain"}
+
+@app.route("/sitemap.xml")
+def sitemap():
+    return """<?xml version="1.0" encoding="UTF-8"?>
+
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+    <url>
+        <loc>https://skyview-travels.onrender.com/</loc>
+    </url>
+
+    <url>
+        <loc>https://skyview-travels.onrender.com/umrah</loc>
+    </url>
+
+    <url>
+        <loc>https://skyview-travels.onrender.com/hajj</loc>
+    </url>
+
+    <url>
+        <loc>https://skyview-travels.onrender.com/holidays</loc>
+    </url>
+
+    <url>
+        <loc>https://skyview-travels.onrender.com/ziyarats</loc>
+    </url>
+
+    <url>
+        <loc>https://skyview-travels.onrender.com/services</loc>
+    </url>
+
+    <url>
+        <loc>https://skyview-travels.onrender.com/contact</loc>
+    </url>
+
+</urlset>
+""", 200, {"Content-Type": "application/xml"}
 
 #
 

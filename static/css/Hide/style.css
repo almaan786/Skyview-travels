@@ -1,0 +1,1071 @@
+/* =========================
+   GENERAL
+========================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+
+    scroll-behavior:smooth;
+}
+
+body{
+
+    font-family:Arial,sans-serif;
+    background:#f5f7fa;
+}
+
+
+/* ==========================
+   Navigation
+========================== */
+
+nav{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    background:#0D47A1;
+
+    padding:25px 60px;
+
+    position:sticky;
+
+    top:0;
+
+    z-index:1000;
+
+}
+
+.logo{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    color:white;
+
+    font-size:28px;
+
+    font-weight:bold;
+    
+    line-height:1.1;
+
+    margin-left:-17px;
+}
+
+.logo img{
+
+    height:67px;
+
+    width:auto;
+}
+
+.logo small{
+
+    display:block;
+
+    font-size:13px;
+
+    font-weight:500;
+
+    opacity: .9;
+}
+
+nav ul{
+
+    display:flex;
+
+    list-style:none;
+}
+
+nav ul li{
+
+    margin-left:25px;
+}
+
+nav ul li a{
+
+    color:white;
+
+    text-decoration:none;
+
+    font-weight:bold;
+
+    transition:0.3s;
+
+}
+
+nav ul li a:hover{
+
+    color:#FFD54F;
+}
+
+/* ==========================
+   Hero
+========================== */
+
+.hero{
+
+    height:90vh;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+    text-align:center;
+
+    padding:20px;
+
+    background:
+        linear-gradient(
+            rgba(0,0,0,.55),
+            rgba(0,0,0,.55)
+        ),
+
+        url("../images/hero.jpg");
+
+    background-size:cover;
+
+    background-position:center;
+
+    background-repeat:no-repeat;
+}
+
+.hero h1{
+
+    color:white;
+
+    font-size:60px;
+
+    margin-bottom:20px;
+}
+
+.hero p{
+
+    color:white;
+
+    font-size:22px;
+
+    max-width:700px;
+
+    margin-bottom:35px;
+}
+
+
+/* ==========================
+   Simple Section Divider
+========================== */
+
+.wave{
+
+    height:80px;
+
+    background:white;
+
+    border-radius:
+        0 0 50% 50%;
+}
+
+
+/* ==========================
+   Buttons
+========================== */
+
+button{
+
+    padding:16px 40px;
+
+    margin:10px;
+
+    border:none;
+
+    border-radius:50px;
+
+    background:#FFD54F;
+
+    color:#0D47A1;
+
+    font-size:18px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+    box-shadow:0 8px 20px rgba(0,0,0,.25);
+}
+
+button:hover{
+
+    transform:
+        translateY(-4px)
+        scale(1.05);
+
+    background:white;
+}
+
+
+/* ==========================
+   Services
+========================== */
+
+.services{
+
+    padding:80px 10%;
+
+    background:#f8f9fa;
+}
+
+.services h2{
+
+    text-align:center;
+
+    font-size:40px;
+
+    color:#0D47A1;
+
+    margin-bottom:60px;
+}
+
+.cards{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(auto-fit,minmax(280px,1fr));
+
+    gap:30px;
+}
+
+.services-cards .card{
+    min-height: 200px;
+
+    padding : 40px;
+}
+
+.card{
+
+    background:white;
+
+    border-radius:20px;
+
+    padding:35px;
+
+    text-align:center;
+
+    box-shadow:
+        0 10px 30px rgba(0,0,0,.10);
+
+    transition:.35s;
+
+    border-top:5px solid #FFD54F;
+
+    min-height:420px;
+}
+
+.card:hover{
+
+    transform:
+        translateY(-12px);
+
+    box-shadow:
+        0 20px 40px rgba(0,0,0,.20);
+}
+
+.card h3{
+
+    font-size:30px;
+
+    margin-bottom:25px;
+
+    color:#0D47A1;
+
+    margin-bottom:20px;
+}
+
+.card p{
+
+    color:#555;
+
+    line-height:1.8;
+
+    margin-bottom:25px;
+}
+
+
+.card i{
+
+    color:#FFD54F;
+
+    font-size:45px;
+
+    margin-bottom:20px;
+}
+
+.card ul{
+
+    list-style:none;
+
+    padding:0;
+
+    margin-top:20px;
+}
+
+.card li{
+
+    padding:8px 0;
+
+    color:#555;
+}
+
+.feature i{
+
+    color:#FFD54F;
+
+    font-size:40px;
+
+    margin-bottom:15px;
+}
+
+.logo i{
+
+    margin-right:10px;
+
+    color:#FFD54F;
+}
+
+
+/* ==========================
+   Why Us
+========================== */
+
+
+.why-us{
+
+    padding:80px 10%;
+
+    background:white;
+}
+
+.why-us h2{
+
+    text-align:center;
+
+    font-size:40px;
+
+    color:#0D47A1;
+
+    margin-bottom:60px;
+}
+
+.features{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(auto-fit,minmax(250px,1fr));
+
+    gap:30px;
+}
+
+.feature{
+
+    background:#f8f9fa;
+
+    padding:30px;
+
+    border-radius:20px;
+
+    text-align:center;
+
+    transition:.3s;
+
+    border-top:5px solid #FFD54F;
+}
+
+.feature:hover{
+
+    transform:translateY(-10px);
+
+    box-shadow:0 15px 35px rgba(0,0,0,.15);
+}
+
+.feature h3{
+
+    color:#0D47A1;
+
+    margin-bottom:15px;
+
+    font-size:24px;
+}
+
+.feature p{
+
+    color:#555;
+
+    line-height:1.7;
+}
+
+
+/* ==========================
+   Footer
+========================== */
+
+footer{
+
+    background:#0D47A1;
+
+    color:white;
+
+    padding:60px 10% 30px;
+}
+
+.footer-container{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(auto-fit,minmax(250px,1fr));
+
+    gap:40px;
+}
+
+.footer-section h3{
+
+    margin-bottom:20px;
+
+    color:#FFD54F;
+}
+
+.footer-section p{
+
+    text-align:left;
+
+    margin-bottom:12px;
+}
+
+.footer-section a{
+
+    color:white;
+
+    text-decoration:none;
+}
+
+.footer-section a:hover{
+
+    color:#FFD54F;
+}
+
+.footer-section i{
+
+    color:#FFD54F;
+
+    margin-right:10px;
+}
+
+.copyright{
+
+    margin-top:25px;
+
+    text-align:center;
+
+    font-size:14px;
+}
+
+
+/* ==========================
+   Packages
+========================== */
+
+/*Umrah Page*/
+
+.packages{
+
+    padding:80px 10%;
+}
+
+.package-container{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(auto-fit,minmax(320px,1fr));
+
+    gap:40px;
+
+}
+
+.package-card{
+
+    background:white;
+
+    border-radius:20px;
+
+    overflow:hidden;
+
+    box-shadow:0 10px 30px rgba(0,0,0,.15);
+
+    transition:.3s;
+
+    text-align:center;
+}
+
+.package-card:hover{
+
+    transform:translateY(-10px);
+
+    box-shadow:0 20px 40px rgba(0,0,0,.2);
+}
+
+.package-card img{
+
+    width:100%;
+
+    height:220px;
+
+    object-fit:cover;
+}
+
+.package-card h2{
+
+    margin:20px 0;
+
+    color:#0D47A1;
+}
+
+.package-card p{
+
+    margin:12px 0;
+}
+
+/* ==========================
+   Common Internal Pages
+========================== */
+
+.page{
+
+    max-width:1000px;
+
+    margin:50px auto;
+
+    padding:30px;
+}
+
+.page h1{
+
+    text-align:center;
+
+    color:#0D47A1;
+
+    margin-bottom:15px;
+}
+
+.page p{
+
+    text-align:center;
+
+    color:#555;
+
+    margin-bottom:30px;
+}
+
+.content-box{
+
+    text-align:center;
+
+    background:white;
+
+    padding:30px;
+
+    border-radius:20px;
+
+    box-shadow:0 10px 30px rgba(0,0,0,.10);
+
+    margin-bottom:30px
+}
+
+/* Headings inside content box */
+
+.content-box h2{
+
+    color:#0D47A1;
+
+    margin-top:25px;
+
+    margin-bottom:12px;
+}
+
+.content-box h3{
+
+    color:#333;
+
+    margin-bottom:10px;
+}
+
+/* Lists */
+
+.content-box ul{
+
+    list-style:none;
+
+    padding:0;
+
+    margin:20px 0;
+}
+
+.content-box li{
+
+    padding:12px 0;
+
+    border-bottom:1px solid #e5e5e5;
+
+    font-size:18px;
+
+    color:#444;
+}
+
+.content-box li:last-child{
+
+    border-bottom:none;
+}
+
+/* Horizontal line */
+
+.content-box hr{
+
+    border:none;
+
+    border-top:1px solid #ddd;
+
+    margin:25px 0;
+}
+
+/* ==========================
+   Holiday Page
+========================== */
+
+.holiday-card{
+
+    max-width:700px;
+
+    margin:40px auto;
+
+    background:white;
+
+    border-radius:20px;
+
+    overflow:hidden;
+
+    box-shadow:0 10px 30px rgba(0,0,0,.12);
+
+    transition:.3s;
+
+    text-align:center;
+}
+
+.holiday-card:hover{
+
+    transform:translateY(-10px);
+
+    box-shadow:0 20px 40px rgba(0,0,0,.20);
+}
+
+.holiday-card img{
+
+    width:100%;
+
+    height:420px;
+
+    object-fit:cover;
+
+    display:block;
+}
+
+.holiday-card h2{
+
+    padding:25px;
+
+    color:#0D47A1;
+
+    font-size:32px;
+}
+
+/* ==========================
+   Mobile Responsive
+========================== */
+
+@media (max-width:768px){
+
+    nav{
+
+        padding:15px 20px;
+
+        flex-direction:column;
+
+        gap:15px;
+
+    }
+
+    .logo{
+
+        margin-left:0;
+
+        font-size:24px;
+
+    }
+
+    .logo img{
+
+        height:50px;
+
+    }
+
+    .logo small{
+
+        font-size:11px;
+
+    }
+
+    nav ul{
+
+        width:100%;
+
+        justify-content:center;
+
+        flex-wrap:wrap;
+
+        gap:12px;
+
+    }
+
+    nav ul li{
+
+        margin-left:0;
+
+    }
+
+    nav ul li a{
+
+        font-size:14px;
+
+    }
+
+
+    .hero{
+
+        height:75vh;
+
+        padding:20px;
+
+    }
+
+    .hero h1{
+
+        font-size:38px;
+
+        margin-bottom:15px;
+
+    }
+
+    .hero p{
+
+        font-size:18px;
+
+        margin-bottom:25px;
+
+    }
+
+    button{
+
+        padding:13px 28px;
+
+        font-size:16px;
+
+        margin:6px;
+
+    }
+
+
+    .services{
+
+        padding:50px 20px;
+
+    }
+
+    .services h2{
+
+        font-size:32px;
+
+        margin-bottom:35px;
+
+    }
+
+    .cards{
+
+        grid-template-columns:1fr;
+
+        gap:20px;
+
+    }
+
+    .card{
+
+        min-height:auto;
+
+        padding:25px;
+
+    }
+
+    .services-cards .card{
+
+        min-height:auto;
+
+        padding:25px;
+
+    }
+
+    .card h3{
+
+        font-size:25px;
+
+    }
+
+
+    .why-us{
+
+        padding:50px 20px;
+
+    }
+
+    .why-us h2{
+
+        font-size:32px;
+
+        margin-bottom:35px;
+
+    }
+
+    .features{
+
+        grid-template-columns:1fr;
+
+        gap:20px;
+
+    }
+
+    .feature{
+
+        padding:25px;
+
+    }
+
+
+    footer{
+
+        padding:45px 20px 25px;
+
+    }
+
+    .footer-container{
+
+        grid-template-columns:1fr;
+
+        gap:30px;
+
+    }
+
+
+    /* Umrah Page */
+
+    .packages{
+
+        padding:40px 20px;
+
+    }
+
+    .package-container{
+
+        grid-template-columns:1fr;
+
+        gap:25px;
+
+    }
+
+    .package-card img{
+
+        height:200px;
+
+    }
+
+
+    /* Common Internal Pages */
+
+    .page{
+
+        margin:30px auto;
+
+        padding:20px;
+
+    }
+
+    .page h1{
+
+        font-size:30px;
+
+    }
+
+    .content-box{
+
+        padding:20px;
+
+    }
+
+    .content-box li{
+
+        font-size:16px;
+
+    }
+
+
+    /* Holiday Page */
+
+    .holiday-card{
+
+        margin:30px 20px;
+
+    }
+
+    .holiday-card img{
+
+        height:250px;
+
+    }
+
+    .holiday-card h2{
+
+        padding:20px;
+
+        font-size:26px;
+
+    }
+
+}
+
+
+/* ==========================
+   Small Mobile Devices
+========================== */
+
+@media (max-width:480px){
+
+    nav{
+
+        padding:12px 15px;
+
+    }
+
+    .logo{
+
+        font-size:21px;
+
+    }
+
+    .logo img{
+
+        height:45px;
+
+    }
+
+    nav ul{
+
+        gap:8px;
+
+    }
+
+    nav ul li a{
+
+        font-size:13px;
+
+    }
+
+
+    .hero{
+
+        height:70vh;
+
+    }
+
+    .hero h1{
+
+        font-size:32px;
+
+    }
+
+    .hero p{
+
+        font-size:16px;
+
+    }
+
+
+    .services h2,
+    .why-us h2{
+
+        font-size:28px;
+
+    }
+
+
+    .card{
+
+        padding:20px;
+
+    }
+
+    .card i{
+
+        font-size:38px;
+
+    }
+
+    .card h3{
+
+        font-size:23px;
+
+    }
+
+
+    .page{
+
+        padding:15px;
+
+    }
+
+    .content-box{
+
+        padding:18px;
+
+    }
+
+    .holiday-card{
+
+        margin:25px 10px;
+
+    }
+
+}

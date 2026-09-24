@@ -1,6 +1,4 @@
 from database import get_connection
-import os
-import requests
 
 #Helper Functions
 
@@ -13,7 +11,7 @@ def get_bookings(search=None):
 
         cursor.execute("""
         SELECT * FROM bookings
-        WHERE full_name LIKE ?
+        WHERE full_name LIKE %s
         """, ('%' + search + '%',))
 
     else:
@@ -36,7 +34,7 @@ def get_booking_by_id(booking_id):
 
     cursor.execute("""
     SELECT * FROM bookings
-    WHERE id = ?
+    WHERE id = %s
     """, (booking_id,))
 
     booking = cursor.fetchone()
@@ -66,7 +64,7 @@ def create_booking(package,
     email)
 
     VALUES
-    (?, ?, ?, ?, ?, ?)
+    (%s, %s, %s, %s, %s, %s)
 
     RETURNING id
     """,
@@ -101,13 +99,13 @@ def update_booking(
 
     cursor.execute("""
     UPDATE bookings
-    SET package = ?,
-        departure_city = ?,
-        travel_date = ?,
-        full_name = ?,
-        phone = ?,
-        email = ?
-    WHERE id = ?
+    SET package = %s,
+        departure_city = %s,
+        travel_date = %s,
+        full_name = %s,
+        phone = %s,
+        email = %s
+    WHERE id = %s
     """, (
         package,
         departure_city,
@@ -128,8 +126,8 @@ def update_booking_status(booking_id, new_status):
 
     cursor.execute("""
     UPDATE bookings
-    SET status = ?
-    WHERE id = ?
+    SET status = %s
+    WHERE id = %s
     """, (new_status, booking_id))
 
     connection.commit()
@@ -142,7 +140,7 @@ def delete_booking(booking_id):
 
     cursor.execute("""
     DELETE FROM bookings
-    WHERE id = ?
+    WHERE id = %s
     """, (booking_id,))
 
     connection.commit()
@@ -157,7 +155,7 @@ def get_package_by_id(package_id):
     """
     SELECT id, name, hotel, duration, transport, visa, price, image, category
     FROM packages
-    WHERE id=?
+    WHERE id=%s
     """,
     (package_id,))
 
@@ -175,7 +173,7 @@ def get_packages(category=None):
         cursor.execute( """
     SELECT id, name, hotel, duration, transport, visa, price, image, category
     FROM packages
-    WHERE category = ?
+    WHERE category = %s
     """,
     (category,))
 
@@ -197,7 +195,7 @@ def get_admin_by_username(username):
 
     cursor.execute("""
     SELECT * FROM admins
-    WHERE username = ?
+    WHERE username = %s
     """, (username,))
 
     admin = cursor.fetchone()
@@ -226,7 +224,7 @@ def create_package(
     (name, hotel, duration, transport, visa, price, image, category)
 
     VALUES
-    (?, ?, ?, ?, ?, ?, ?, ?)
+    (%s, %s, %s, %s, %s, %s, %s, %s)
     """,
     (
         name,
@@ -260,15 +258,15 @@ def update_package(
     cursor.execute("""
     UPDATE packages
     SET
-    name=?,
-    hotel=?,
-    duration=?,
-    transport=?,
-    visa=?,
-    price=?,
-    image=?,
-    category=?
-    WHERE id=?
+    name=%s,
+    hotel=%s,
+    duration=%s,
+    transport=%s,
+    visa=%s,
+    price=%s,
+    image=%s,
+    category=%s
+    WHERE id=%s
     """,
     (
         name,
@@ -292,61 +290,10 @@ def delete_package(package_id):
 
     cursor.execute("""
     DELETE FROM packages
-    WHERE id = ?
+    WHERE id = %s
     """, (package_id,))
 
     connection.commit()
     connection.close()
 
-def send_whatsapp_notification(booking_id, customer_name, package_name):
 
-    token = os.environ["WHATSAPP_TOKEN"]
-
-    phone_number_id = "1303844576142865"
-    recipient = "918260889678"
-
-    url = f"https://graph.facebook.com/v26.0/{phone_number_id}/messages"
-
-    headers = {
-        "Authorization": f"Bearer {token}",
-        "Content-Type": "application/json"
-    }
-
-    data = {
-        "messaging_product": "whatsapp",
-        "to": recipient,
-        "type": "template",
-        "template": {
-            "name": "booking_notification",
-            "language": {
-                "code": "en"
-            },
-            "components": [
-                {
-                    "type": "body",
-                    "parameters": [
-                        {
-                            "type": "text",
-                            "text": str(booking_id)
-                        },
-                        {
-                            "type": "text",
-                            "text": customer_name
-                        },
-                        {
-                            "type": "text",
-                            "text": package_name
-                        }
-                    ]
-                }
-            ]
-        }
-    }
-
-    response = requests.post(
-        url,
-        headers=headers,
-        json=data
-    )
-
-    return response
