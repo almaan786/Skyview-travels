@@ -1,1 +1,1 @@
-![Project Architecture](static/images/project_architecture.jpg)
+![Project Architecture](static/images/project_architecture.png)
