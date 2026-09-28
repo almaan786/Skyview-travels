@@ -54,22 +54,16 @@
 
 </nav>
 
-<section class="hero">
+<section class="welcome">
 
-    <h1>Experience a Blessed Journey</h1>
+    <h1>Welcome to Skyview Travels</h1>
 
     <p>
-        Your trusted partner for Umrah, Hajj,
-        International Flights and Tour Packages.
+        Your trusted travel partner for Umrah, Hajj,
+        flights and holiday packages.
     </p>
 
-    <a href="/book">
-        <button>Book Now</button>
-    </a>
-
-    <a href="/umrah">
-        <button>View Packages</button>
-    </a>
+    <a href="/packages">View Packages</a>
 
 </section>
 

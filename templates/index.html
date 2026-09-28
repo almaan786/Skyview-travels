@@ -2,8 +2,16 @@
 <html>
 
 <head>
+ 
+    <head>
 
-    <title>Skyview Travels</title>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description" content="Explore Umrah, Hajj, holiday and travel services with Skyview Travels. Find travel packages and plan your journey with us.">
+
+    <title>{% block title %}Skyview Travels{% endblock %}</title>
 
     <link
         rel="stylesheet"
@@ -54,16 +62,22 @@
 
 </nav>
 
-<section class="welcome">
+<section class="hero">
 
-    <h1>Welcome to Skyview Travels</h1>
+    <h1>Experience a Blessed Journey</h1>
 
     <p>
-        Your trusted travel partner for Umrah, Hajj,
-        flights and holiday packages.
+        Your trusted partner for Umrah, Hajj,
+        International Flights and Tour Packages.
     </p>
 
-    <a href="/packages">View Packages</a>
+    <a href="/book">
+        <button>Book Now</button>
+    </a>
+
+    <a href="/umrah">
+        <button>View Packages</button>
+    </a>
 
 </section>
 
