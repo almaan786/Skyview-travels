@@ -167,6 +167,73 @@ nav ul li a:hover{
 
 
 /* ==========================
+   Travel Services Carousel
+========================== */
+
+.travel-slider{
+
+    display:flex;
+
+    gap:25px;
+
+    overflow-x:auto;
+
+    scroll-snap-type:x mandatory;
+
+    padding:10px 5px 25px;
+
+}
+
+.travel-card{
+
+    flex:0 0 85%;
+
+    scroll-snap-align:start;
+
+    background:white;
+
+    border-radius:20px;
+
+    padding:35px;
+
+    text-align:center;
+
+    box-shadow:
+        0 10px 30px rgba(0,0,0,.10);
+
+    border-top:5px solid #FFD54F;
+
+}
+
+.travel-card h3{
+
+    font-size:30px;
+
+    margin-bottom:20px;
+
+    color:#0D47A1;
+
+}
+
+.travel-card h3 i{
+
+    color:#FFD54F;
+
+    margin-right:8px;
+
+}
+
+.travel-card p{
+
+    color:#555;
+
+    line-height:1.8;
+
+    margin-bottom:25px;
+
+}
+
+/* ==========================
    Simple Section Divider
 ========================== */
 
